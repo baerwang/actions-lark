@@ -1,0 +1,20 @@
+name: Failure notifications 💥
+description: This action will Failure notifications.
+inputs:
+  lark-bot-notify-webhook:
+    description: 'Lark Bot Notify Webhook'
+    required: true
+  title:
+    description: 'Notify title'
+    required: true
+  action-link:
+    description: 'Github Action link'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Notify to IM
+      shell: bash
+      run: |
+        python $GITHUB_ACTION_PATH/scripts/notify_fail_lark.py --repo ${{ github.repository }} --title "${{ inputs.title }}" --action-link ${{ inputs.action-link }} --lark-bot-notify-webhook ${{ inputs.lark-bot-notify-webhook }}
